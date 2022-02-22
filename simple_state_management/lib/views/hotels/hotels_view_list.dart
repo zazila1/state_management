@@ -16,6 +16,8 @@ class HomeViewList extends StatelessWidget {
       physics: const AlwaysScrollableScrollPhysics(),
       itemCount: previews.length,
       itemBuilder: (BuildContext context, int index) {
+        //print(previews[index]);
+
         return Container(
           height: 280,
           color: Colors.grey[300],
@@ -50,8 +52,8 @@ class HomeViewList extends StatelessWidget {
                           onFavoritesPressed: () {
                             print("favorite!");
                           },
-                          isLiked: false,
-                          isFavorite: false,
+                          isLiked: previews[index].isLiked,
+                          isFavorite: previews[index].isFavorite,
                           smallestSize: _isBigScreen ? 35 : 25,
                         ),
                       ),

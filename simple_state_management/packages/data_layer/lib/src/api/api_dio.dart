@@ -3,7 +3,7 @@ import 'package:data_layer/src/models/hotel_response.dart';
 import 'package:data_layer/src/models/hotels_preview_response.dart';
 import 'package:dio/dio.dart';
 
-// I don't have APi implementation for likes and favorites, so i do some fake functional for it
+// I don't have APi implementation for likes and favorites, so i did some fake functional for it
 class ApiDio implements Api {
   final Dio _httpClient;
   final String? _baseUrl;
@@ -33,14 +33,18 @@ class ApiDio implements Api {
         _generateInitFakeData(_data);
       }
 
+      List<HotelPreviewResponse> _newData = [];
+
       for (var value in _data) {
         value = value.copyWith(
           isLiked: _fakeHotelData[value.uuid]!.isLiked,
           isFavorite: _fakeHotelData[value.uuid]!.isFavorite,
         );
+
+        _newData.add(value);
       }
 
-      return _data;
+      return _newData;
     } catch (e) {
       return Future.error(e);
     }

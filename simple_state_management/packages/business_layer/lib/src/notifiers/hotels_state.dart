@@ -62,6 +62,7 @@ class HotelsState with ChangeNotifier implements HotelsNotifier {
     List<HotelPreview> _hotelsPreview = [];
 
     for (var item in data) {
+      //print(item);
       _hotelsPreview.add(HotelPreview(uuid: item.uuid, name: item.name, poster: item.poster, isFavorite: item.isFavorite, isLiked: item.isLiked));
     }
 
