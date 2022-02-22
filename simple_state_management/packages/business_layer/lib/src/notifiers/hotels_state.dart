@@ -62,7 +62,7 @@ class HotelsState with ChangeNotifier implements HotelsNotifier {
     List<HotelPreview> _hotelsPreview = [];
 
     for (var item in data) {
-      _hotelsPreview.add(HotelPreview(uuid: item.uuid, name: item.name, poster: item.poster));
+      _hotelsPreview.add(HotelPreview(uuid: item.uuid, name: item.name, poster: item.poster, isFavorite: item.isFavorite, isLiked: item.isLiked));
     }
 
     return _hotelsPreview;
@@ -89,6 +89,8 @@ class HotelsState with ChangeNotifier implements HotelsNotifier {
       rating: data.rating,
       services: _services,
       photos: data.photos,
+      isLiked: data.isLiked,
+      isFavorite: data.isFavorite,
     );
 
     return _hotel;

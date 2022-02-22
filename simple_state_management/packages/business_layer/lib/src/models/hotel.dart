@@ -14,6 +14,8 @@ class Hotel with _$Hotel {
     required double rating,
     required Services services,
     required List<String> photos,
+    required bool isLiked,
+    required bool isFavorite,
   }) = _Hotel;
 
   factory Hotel.fromJson(Map<String, dynamic> json) => _$HotelFromJson(json);

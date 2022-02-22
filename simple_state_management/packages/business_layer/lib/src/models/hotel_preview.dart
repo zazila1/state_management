@@ -9,6 +9,8 @@ class HotelPreview with _$HotelPreview {
     required String uuid,
     required String name,
     required String poster,
+    required bool isLiked,
+    required bool isFavorite,
   }) = _HotelPreview;
 
   factory HotelPreview.fromJson(Map<String, dynamic> json) =>

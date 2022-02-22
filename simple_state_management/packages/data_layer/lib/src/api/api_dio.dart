@@ -62,8 +62,9 @@ class ApiDio implements Api {
       _data = HotelResponse.fromJson(responseData.data);
 
       _data = _data.copyWith(
-        isLiked: _fakeHotelData[_data.uuid]!.isLiked,
-        isFavorite: _fakeHotelData[_data.uuid]!.isFavorite,
+        uuid: uuid,
+        isLiked: _fakeHotelData[uuid]!.isLiked,
+        isFavorite: _fakeHotelData[uuid]!.isFavorite,
       );
 
       return _data;
