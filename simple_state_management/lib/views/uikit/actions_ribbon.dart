@@ -52,11 +52,11 @@ class ActionRibbon extends StatelessWidget {
       decoration: transparent
           ? null
           : BoxDecoration(
-        color: Colors.white.withAlpha(180),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(5),
-        ),
-      ),
+              color: Colors.white.withAlpha(180),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(5),
+              ),
+            ),
       child: Column(
         children: _buttons(),
       ),
@@ -70,11 +70,11 @@ class ActionRibbon extends StatelessWidget {
       decoration: transparent
           ? null
           : BoxDecoration(
-        color: Colors.white.withAlpha(179),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(5),
-        ),
-      ),
+              color: Colors.white.withAlpha(179),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(5),
+              ),
+            ),
       child: Row(
         children: _buttons(),
       ),

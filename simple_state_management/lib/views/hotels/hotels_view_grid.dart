@@ -51,6 +51,7 @@ class HomeViewGrid extends StatelessWidget {
                         },
                         isLiked: false,
                         isFavorite: false,
+                        smallestSize: _isBigScreen ? 35 : 25,
                       ),
                     ),
                   ],

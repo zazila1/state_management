@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:business_layer/business_layer.dart';
 import 'package:provider/provider.dart';
-import 'home_view_grid.dart';
-import 'home_view_list.dart';
+import 'hotels_view_grid.dart';
+import 'hotels_view_list.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:fluro/fluro.dart';
-import 'package:hotels/views/detailed_view.dart';
-import 'package:hotels/views/home_view.dart';
+import 'package:hotels/views/hotels/hotel_detailed_view.dart';
+import 'package:hotels/views/hotels/hotels_list_page.dart';
 import 'package:business_layer/business_layer.dart';
 
 Handler homeHandler = Handler(handlerFunc: (context, params) {

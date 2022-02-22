@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:business_layer/business_layer.dart';
-import 'package:hotels/views/uikit/description_text.dart';
+import 'package:hotels/views/hotels/description_text.dart';
 import 'package:provider/provider.dart';
 
 class HotelDetailsView extends StatefulWidget {
