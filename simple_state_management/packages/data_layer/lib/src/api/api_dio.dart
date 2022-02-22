@@ -1,16 +1,13 @@
-import 'dart:math';
-
 import 'package:data_layer/src/api/api.dart';
 import 'package:data_layer/src/models/hotel_response.dart';
 import 'package:data_layer/src/models/hotels_preview_response.dart';
 import 'package:dio/dio.dart';
 
-
 // I don't have APi implementation for likes and favorites, so i do some fake functional for it
 class ApiDio implements Api {
   final Dio _httpClient;
   final String? _baseUrl;
-  late Map<String, FakeLikesAndFavoritesHotelData> _fakeHotelData;
+  final Map<String, FakeLikesAndFavoritesHotelData> _fakeHotelData = {};
 
   ApiDio(this._httpClient, [this._baseUrl = ""]);
 
@@ -32,8 +29,17 @@ class ApiDio implements Api {
         responseData.data.map((preview) => HotelPreviewResponse.fromJson(preview)),
       );
 
-      _generateStartFakeData(_data);
-      
+      if (_fakeHotelData.isEmpty) {
+        _generateInitFakeData(_data);
+      }
+
+      for (var value in _data) {
+        value = value.copyWith(
+          isLiked: _fakeHotelData[value.uuid]!.isLiked,
+          isFavorite: _fakeHotelData[value.uuid]!.isFavorite,
+        );
+      }
+
       return _data;
     } catch (e) {
       return Future.error(e);
@@ -55,6 +61,11 @@ class ApiDio implements Api {
     try {
       _data = HotelResponse.fromJson(responseData.data);
 
+      _data = _data.copyWith(
+        isLiked: _fakeHotelData[_data.uuid]!.isLiked,
+        isFavorite: _fakeHotelData[_data.uuid]!.isFavorite,
+      );
+
       return _data;
     } catch (e) {
       return Future.error(e);
@@ -63,26 +74,37 @@ class ApiDio implements Api {
 
   @override
   Future<bool> setHotelFavoriteStatus(String uuid, bool isFavorite) async {
-    //FAKE;
+    if (_fakeHotelData[uuid] == null) {
+      return false;
+    }
+
+    _fakeHotelData[uuid]!.isFavorite = isFavorite;
+
     return true;
   }
 
   @override
   Future<bool> setHotelLikeStatus(String uuid, bool isLiked) async {
-    //FAKE;
+    if (_fakeHotelData[uuid] == null) {
+      return false;
+    }
+
+    _fakeHotelData[uuid]!.isLiked = isLiked;
+
     return true;
   }
 
-  _generateStartFakeData(List<HotelPreviewResponse> list)
-  {
-    Random rnd = Random();
-    list.map((item) => _fakeHotelData[item.uuid] = FakeLikesAndFavoritesHotelData(rnd.nextBool(), rnd.nextBool()));
+  _generateInitFakeData(List<HotelPreviewResponse> list) {
+    for (var item in list) {
+      {
+        _fakeHotelData[item.uuid] = FakeLikesAndFavoritesHotelData(false, true);
+      }
+    }
   }
-
 }
 
 class FakeLikesAndFavoritesHotelData {
-  FakeLikesAndFavoritesHotelData(this. isLiked, this.isFavorite);
+  FakeLikesAndFavoritesHotelData(this.isLiked, this.isFavorite);
   late bool isLiked;
   late bool isFavorite;
 }

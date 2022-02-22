@@ -21,14 +21,12 @@ class HotelsRepositoryData implements HotelsRepository {
 
   @override
   Future<bool> setHotelFavoriteStatus(String uuid, bool isFavorite) {
-    // TODO: implement setHotelFavoriteStatus
-    throw UnimplementedError();
+    return _api.setHotelFavoriteStatus(uuid, isFavorite);
   }
 
   @override
   Future<bool> setHotelLikeStatus(String uuid, bool isLiked) {
-    // TODO: implement setHotelLikeStatus
-    throw UnimplementedError();
+    return _api.setHotelLikeStatus(uuid, isLiked);
   }
 
 }

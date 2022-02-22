@@ -5,10 +5,12 @@ part 'hotels_preview_response.g.dart';
 
 @freezed
 class HotelPreviewResponse with _$HotelPreviewResponse {
-  const factory HotelPreviewResponse({
+  factory HotelPreviewResponse({
     required String uuid,
     @Default('') String name,
     @Default('') String poster,
+    @Default(false) bool isLiked,
+    @Default(false) bool isFavorite,
   }) = _HotelPreviewResponse;
 
   factory HotelPreviewResponse.fromJson(Map<String, dynamic> json) =>

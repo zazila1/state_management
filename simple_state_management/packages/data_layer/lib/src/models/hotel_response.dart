@@ -14,6 +14,9 @@ class HotelResponse with _$HotelResponse {
     required double rating,
     required ServicesResponse services,
     required List<String> photos,
+    @Default(false) bool isLiked,
+    @Default(false) bool isFavorite,
+
   }) = _HotelResponse;
 
   factory HotelResponse.fromJson(Map<String, dynamic> json) => _$HotelResponseFromJson(json);
