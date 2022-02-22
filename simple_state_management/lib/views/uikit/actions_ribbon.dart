@@ -70,7 +70,7 @@ class ActionRibbon extends StatelessWidget {
       decoration: transparent
           ? null
           : BoxDecoration(
-              color: Colors.white.withAlpha(179),
+              color: Colors.white.withAlpha(180),
               borderRadius: const BorderRadius.all(
                 Radius.circular(5),
               ),

@@ -40,8 +40,21 @@ class HotelsState with ChangeNotifier implements HotelsNotifier {
   }
 
   @override
-  void updateHotel() {
-    // not implemented
+  void setFavorite(String uuid, bool isLiked) {
+    _hotelsRepository.setHotelFavoriteStatus(
+      uuid,
+      isLiked,
+    );
+    notifyListeners();
+  }
+
+  @override
+  void setLike(String uuid, bool isLiked) {
+    _hotelsRepository.setHotelLikeStatus(
+      uuid,
+      isLiked,
+    );
+    notifyListeners();
   }
 
   Future<List<HotelPreview>> _getHotelsPreviewDataFromApi() async {
@@ -63,7 +76,13 @@ class HotelsState with ChangeNotifier implements HotelsNotifier {
 
     for (var item in data) {
       //print(item);
-      _hotelsPreview.add(HotelPreview(uuid: item.uuid, name: item.name, poster: item.poster, isFavorite: item.isFavorite, isLiked: item.isLiked));
+      _hotelsPreview.add(HotelPreview(
+        uuid: item.uuid,
+        name: item.name,
+        poster: item.poster,
+        isFavorite: item.isFavorite,
+        isLiked: item.isLiked,
+      ));
     }
 
     return _hotelsPreview;

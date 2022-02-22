@@ -62,8 +62,8 @@ class _HomeViewState extends State<HomeView> {
                               return state.previewHotelData;
                             },
                             child: _isListView
-                                ? HomeViewList(previews: snapshot.data)
-                                : HomeViewGrid(previews: snapshot.data),
+                                ? HomeViewList(previews: snapshot.data, state: state,)
+                                : HomeViewGrid(previews: snapshot.data, state: state,),
                           );
                   default:
                     return const SingleChildScrollView(

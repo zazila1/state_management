@@ -4,8 +4,9 @@ import 'package:hotels/router/fluro_router.dart';
 import 'package:hotels/views/uikit/actions_ribbon.dart';
 
 class HomeViewGrid extends StatelessWidget {
-  const HomeViewGrid({Key? key, required this.previews}) : super(key: key);
+  const HomeViewGrid({Key? key, required this.previews, required this.state}) : super(key: key);
   final List<HotelPreview> previews;
+  final HotelsNotifier state;
 
   @override
   Widget build(BuildContext context) {
@@ -44,14 +45,14 @@ class HomeViewGrid extends StatelessWidget {
                       alignment: const Alignment(0.9, -0.85),
                       child: ActionRibbon(
                         onLikePressed: () {
-                          print("like!");
+                          state.setLike(previews[index].uuid, !previews[index].isLiked,);
                         },
                         onFavoritesPressed: () {
-                          print("favorite!");
+                          state.setFavorite(previews[index].uuid, !previews[index].isFavorite,);
                         },
                         isLiked: false,
                         isFavorite: false,
-                        smallestSize: _isBigScreen ? 35 : 25,
+                        smallestSize: _isBigScreen ? 30 : 25,
                       ),
                     ),
                   ],

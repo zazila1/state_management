@@ -9,5 +9,6 @@ abstract class HotelsNotifier with ChangeNotifier  {
 
   void loadHotelsPreviewData({bool notify});
   void loadHotelData(String uuid, {bool notify});
-  void updateHotel();
+  void setLike(String uuid, bool isLiked);
+  void setFavorite(String uuid, bool isFavorite);
 }

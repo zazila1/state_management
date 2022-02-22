@@ -5,8 +5,9 @@ import 'package:hotels/router/fluro_router.dart';
 import '../uikit/actions_ribbon.dart';
 
 class HomeViewList extends StatelessWidget {
-  const HomeViewList({Key? key, required this.previews}) : super(key: key);
+  const HomeViewList({Key? key, required this.previews, required this.state}) : super(key: key);
   final List<HotelPreview> previews;
+  final HotelsNotifier state;
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +48,10 @@ class HomeViewList extends StatelessWidget {
                         child: ActionRibbon(
                           orientation: Axis.horizontal,
                           onLikePressed: () {
-                            print("like!");
+                            state.setLike(previews[index].uuid, !previews[index].isLiked,);
                           },
                           onFavoritesPressed: () {
-                            print("favorite!");
+                            state.setFavorite(previews[index].uuid, !previews[index].isFavorite,);
                           },
                           isLiked: previews[index].isLiked,
                           isFavorite: previews[index].isFavorite,
