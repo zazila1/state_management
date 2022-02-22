@@ -1,11 +1,16 @@
+import 'dart:math';
+
 import 'package:data_layer/src/api/api.dart';
 import 'package:data_layer/src/models/hotel_response.dart';
 import 'package:data_layer/src/models/hotels_preview_response.dart';
 import 'package:dio/dio.dart';
 
+
+// I don't have APi implementation for likes and favorites, so i do some fake functional for it
 class ApiDio implements Api {
   final Dio _httpClient;
   final String? _baseUrl;
+  late Map<String, FakeLikesAndFavoritesHotelData> _fakeHotelData;
 
   ApiDio(this._httpClient, [this._baseUrl = ""]);
 
@@ -27,6 +32,8 @@ class ApiDio implements Api {
         responseData.data.map((preview) => HotelPreviewResponse.fromJson(preview)),
       );
 
+      _generateStartFakeData(_data);
+      
       return _data;
     } catch (e) {
       return Future.error(e);
@@ -53,4 +60,29 @@ class ApiDio implements Api {
       return Future.error(e);
     }
   }
+
+  @override
+  Future<bool> setHotelFavoriteStatus(String uuid, bool isFavorite) async {
+    //FAKE;
+    return true;
+  }
+
+  @override
+  Future<bool> setHotelLikeStatus(String uuid, bool isLiked) async {
+    //FAKE;
+    return true;
+  }
+
+  _generateStartFakeData(List<HotelPreviewResponse> list)
+  {
+    Random rnd = Random();
+    list.map((item) => _fakeHotelData[item.uuid] = FakeLikesAndFavoritesHotelData(rnd.nextBool(), rnd.nextBool()));
+  }
+
+}
+
+class FakeLikesAndFavoritesHotelData {
+  FakeLikesAndFavoritesHotelData(this. isLiked, this.isFavorite);
+  late bool isLiked;
+  late bool isFavorite;
 }

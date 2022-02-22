@@ -19,4 +19,16 @@ class HotelsRepositoryData implements HotelsRepository {
     return _api.getHotelsPreviewResponse();
   }
 
+  @override
+  Future<bool> setHotelFavoriteStatus(String uuid, bool isFavorite) {
+    // TODO: implement setHotelFavoriteStatus
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> setHotelLikeStatus(String uuid, bool isLiked) {
+    // TODO: implement setHotelLikeStatus
+    throw UnimplementedError();
+  }
+
 }
