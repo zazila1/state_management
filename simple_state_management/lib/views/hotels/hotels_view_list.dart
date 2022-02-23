@@ -19,6 +19,8 @@ class HomeViewList extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         //print(previews[index]);
 
+        print("ListView.builder");
+
         return Container(
           height: 280,
           color: Colors.grey[300],

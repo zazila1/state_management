@@ -16,6 +16,9 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+
+    print("HomeView build");
+
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -44,7 +47,7 @@ class _HomeViewState extends State<HomeView> {
         child: Consumer<HotelsNotifier>(
           builder: (context, state, child) {
             return FutureBuilder<List<HotelPreview>>(
-              future: state.previewHotelData,
+              future: state.previewHotelDataFuture,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
@@ -59,7 +62,7 @@ class _HomeViewState extends State<HomeView> {
                             onRefresh: () {
                               state.loadHotelsPreviewData(notify: true);
 
-                              return state.previewHotelData;
+                              return state.previewHotelDataFuture;
                             },
                             child: _isListView
                                 ? HomeViewList(previews: snapshot.data, state: state,)

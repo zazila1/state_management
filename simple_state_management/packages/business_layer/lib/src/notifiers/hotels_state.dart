@@ -9,17 +9,32 @@ class HotelsState with ChangeNotifier implements HotelsNotifier {
   HotelsState(this._hotelsRepository) {
     loadHotelsPreviewData();
   }
+
+  Hotel? _hotelData;
+  late List<HotelPreview> _previewHotelData;
   final HotelsRepository _hotelsRepository;
+  LoadingState _detailedLoadingState = LoadingState.none;
+  String? _error;
+  // @override
+  // LoadingState previewLoadingState = LoadingState.none;
+  @override
+  LoadingState get detailedLoadingState => _detailedLoadingState;
+  @override
+  Hotel? get hotelData => _hotelData;
+  @override
+  List<HotelPreview> get previewHotelData => _previewHotelData;
+  @override
+  String? get error => _error;
 
   @override
-  late Future<List<HotelPreview>> previewHotelData;
+  late Future<List<HotelPreview>> previewHotelDataFuture;
   @override
-  late Future<Hotel> hotelData;
+  late Future<Hotel> hotelDataFuture;
 
   @override
   void loadHotelsPreviewData({bool notify = true}) async {
-    previewHotelData = _getHotelsPreviewDataFromApi();
-    previewHotelData.then(
+    previewHotelDataFuture = _getHotelsPreviewDataFromApi();
+    previewHotelDataFuture.then(
       (value) => {
         if (notify) notifyListeners(),
       },
@@ -30,13 +45,19 @@ class HotelsState with ChangeNotifier implements HotelsNotifier {
 
   @override
   void loadHotelData(String uuid, {bool notify = true}) async {
-    hotelData = _getHotelDataFromApi(uuid);
+    _setLoadingState(error: null, loadingState: LoadingState.loading);
 
-    hotelData.then(
-      (value) => {
-        if (notify) notifyListeners(),
-      },
-    );
+    try {
+      _hotelData = await _getHotelDataFromApi(uuid);
+      _setLoadingState(error: null, loadingState: LoadingState.done);
+    } catch (e) {
+      _setLoadingState(error: e.toString(), loadingState: LoadingState.error);
+      _hotelData = null;
+    }
+
+    if (notify) {
+      notifyListeners();
+    }
   }
 
   @override
@@ -55,6 +76,12 @@ class HotelsState with ChangeNotifier implements HotelsNotifier {
       isLiked,
     );
     notifyListeners();
+  }
+
+  @override
+  void clearDetailedData() {
+    _setLoadingState(error: null, loadingState: LoadingState.none);
+    _hotelData = null;
   }
 
   Future<List<HotelPreview>> _getHotelsPreviewDataFromApi() async {
@@ -86,6 +113,11 @@ class HotelsState with ChangeNotifier implements HotelsNotifier {
     }
 
     return _hotelsPreview;
+  }
+
+  void _setLoadingState({required error, required loadingState}) {
+    _error = error;
+    _detailedLoadingState = loadingState;
   }
 
   Hotel _generateHotelWithResponseData(HotelResponse data) {
