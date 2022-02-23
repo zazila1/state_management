@@ -4,6 +4,8 @@ import 'package:business_layer/business_layer.dart';
 import 'package:hotels/views/hotels/description_text.dart';
 import 'package:provider/provider.dart';
 
+import '../uikit/actions_ribbon.dart';
+
 class HotelDetailsView extends StatefulWidget {
   const HotelDetailsView({Key? key, required this.hotelPreview}) : super(key: key);
 
@@ -152,6 +154,25 @@ class _HotelDetailsViewState extends State<HotelDetailsView> {
                         ]),
                       ),
                     ]),
+                  ),
+                  ActionRibbon(
+                    orientation: Axis.horizontal,
+                    transparent: true,
+                    onLikePressed: () {
+                      state.setLike(
+                        state.hotelData!.uuid,
+                        !state.hotelData!.isLiked,
+                      );
+                    },
+                    onFavoritesPressed: () {
+                      state.setFavorite(
+                        state.hotelData!.uuid,
+                        !state.hotelData!.isFavorite,
+                      );
+                    },
+                    isLiked: state.hotelData!.isLiked,
+                    isFavorite: state.hotelData!.isFavorite,
+                    smallestSize: 35,
                   ),
                 ]),
               );

@@ -34,6 +34,7 @@ class HotelsState with ChangeNotifier implements HotelsNotifier {
   @override
   void loadHotelsPreviewData({bool notify = true}) async {
     previewHotelDataFuture = _getHotelsPreviewDataFromApi();
+    _previewHotelData = await previewHotelDataFuture;
     previewHotelDataFuture.then(
       (value) => {
         if (notify) notifyListeners(),
@@ -61,11 +62,19 @@ class HotelsState with ChangeNotifier implements HotelsNotifier {
   }
 
   @override
-  void setFavorite(String uuid, bool isLiked) {
+  void setFavorite(String uuid, bool isFavorite) {
     _hotelsRepository.setHotelFavoriteStatus(
       uuid,
-      isLiked,
+      isFavorite,
     );
+
+    for (HotelPreview item in _previewHotelData) {
+      if (item.uuid == uuid) {
+        item = item.copyWith(isFavorite: isFavorite);
+      }
+    }
+    _hotelData = _hotelData?.copyWith(isFavorite: isFavorite);
+
     notifyListeners();
   }
 
@@ -75,6 +84,12 @@ class HotelsState with ChangeNotifier implements HotelsNotifier {
       uuid,
       isLiked,
     );
+    for (HotelPreview item in _previewHotelData) {
+      if (item.uuid == uuid) {
+        item = item.copyWith(isLiked: isLiked);
+      }
+    }
+    _hotelData = _hotelData?.copyWith(isLiked: isLiked);
     notifyListeners();
   }
 
